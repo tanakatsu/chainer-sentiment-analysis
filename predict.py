@@ -52,7 +52,9 @@ def main():
     # load dataset and vocabulary
     seq_len = args.seqlen
 
+    # For testing with labels
     # ds = dataset.Dataset(args.file, label=args.label, input_vocab=args.input_vocab, label_vocab=args.label_vocab, seq_len=seq_len)
+
     ds = dataset.Dataset(args.file, input_vocab=args.input_vocab, label_vocab=args.label_vocab, seq_len=seq_len, fraction=0.0)
     _, test = ds.get_inputs_and_labels()
 
