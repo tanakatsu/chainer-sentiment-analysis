@@ -82,7 +82,7 @@ with open(os.path.join(os.path.dirname(args.input), 'input_vocab.bin'), 'wb') as
     pickle.dump(input_vocab, f)
 with open(os.path.join(os.path.dirname(args.input), 'label_vocab.bin'), 'wb') as f:
     pickle.dump(label_vocab, f)
-print('save vocaburay dictionary')
+print('save vocabulary dictionary')
 
 # Prepare RNNLM model, defined in net.py
 lm = net.RNNLM(len(input_vocab), len(label_vocab), n_units)

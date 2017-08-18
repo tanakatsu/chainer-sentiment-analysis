@@ -104,10 +104,10 @@ def main():
                     print('[suggested reactions] %s' % result)
                     n_total += 1
                     if indice[0] == y:
-                        print(label_ivocab[y], '==', label_ivocab[indice[0]], '=> match')
+                        print(label_ivocab[indice[0]], '(prediction)', '==', label_ivocab[y], '(actual)', '? => MATCH')
                         n_match += 1
                     else:
-                        print(label_ivocab[y], '==', label_ivocab[indice[0]], '=> NOT match')
+                        print(label_ivocab[indice[0]], '(prediction)', '==', label_ivocab[y], '(actual)', '? => NOT MATCH')
                 else:
                     print('[suggested reactions] %s' % result)
         if has_label:
