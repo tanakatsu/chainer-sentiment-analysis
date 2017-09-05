@@ -1,6 +1,7 @@
 import chainer
 import chainer.functions as F
 import chainer.links as L
+import numpy as np
 
 
 class RNNLM(chainer.Chain):
@@ -17,6 +18,8 @@ class RNNLM(chainer.Chain):
             l2=L.LSTM(n_units, n_units),
             l3=L.Linear(n_units, n_outputs),
         )
+        for param in self.params():
+            param.data[...] = np.random.uniform(-0.1, 0.1, param.data.shape)
         self.train = train
 
     def reset_state(self):

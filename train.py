@@ -87,9 +87,6 @@ print('save vocabulary dictionary')
 # Prepare RNNLM model, defined in net.py
 lm = net.RNNLM(len(input_vocab), len(label_vocab), n_units)
 model = L.Classifier(lm)
-for param in model.params():
-    data = param.data
-    data[:] = np.random.uniform(-0.1, 0.1, data.shape)
 if args.gpu >= 0:
     cuda.get_device(args.gpu).use()
     model.to_gpu()
@@ -221,24 +218,15 @@ for epoch in six.moves.range(1, n_epoch + 1):
     #     print('learning rate =', optimizer.lr)
 
 # Evaluate on test dataset
-print('test')
+print('test...')
 test_perp, test_acc = evaluate(test)
 print('test perplexity:', test_perp)
 print('test accuracy:', test_acc)
 
 if args.check:
     test_acc = predict(test)
-    print('test accuracy(check1):', test_acc)
+    print('test accuracy(check):', test_acc)
 
 # Save the model and the optimizer
 print('save the model')
 serializers.save_npz(os.path.join(os.path.dirname(args.input), 'rnnlm.model'), model)
-
-if args.check:
-    print('load the model')
-    serializers.load_npz(os.path.join(os.path.dirname(args.input), 'rnnlm.model'), model)
-    if args.gpu >= 0:
-        cuda.get_device(args.gpu).use()
-        model.to_gpu()
-    test_acc = predict(test)
-    print('test accuracy(check2):', test_acc)
