@@ -76,3 +76,4 @@ target/
 .DS_Store
 data/*
 !data/.keep
+reaction_map.yml

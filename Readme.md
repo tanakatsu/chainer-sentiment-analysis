@@ -56,6 +56,39 @@ You have to use same parameters as in training for `seqlen` and `unit`.
 
 Also, you have to use output files in training for `model` and `input_vocab`, `label_vocab` parameters.
 
+## Slack messages sentiment analysis
+
+Prepare slack message data text file (let's call it `slack_messages.txt` here).
+
+Create input and label file from it.
+
+```
+$ python slack_message_dataset.py --mapfile reaction_map.yml slack_messages.txt
+```
+
+This generates `data/slack_comments.txt` and `data/slack_labels.txt`.
+
+You can merge labels using `reaction_map.yml`.
+
+Sample yaml file is as follows.
+
+```
+positive:
+  - ":tada:"
+  - ":smile:"
+negative:
+  - ":scream:"
+  - ":disappointed_relieved:"
+```
+
+In this example, `:tada:` and `:smile:` labels are converted to `positive` label.
+
+Then, you can proceed to training.
+
+```
+$ python train.py --gpu 0 --input data/slack_comments.txt --label data/slack_labels.txt --seqlen 30 -e 20 -u 300
+```
+
 ## License
 
 MIT
