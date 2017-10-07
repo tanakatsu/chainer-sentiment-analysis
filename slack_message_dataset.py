@@ -23,7 +23,7 @@ class WordExtracter:
     def split_word_by_emoji(self, s):
         words = []
         while True:
-            m = re.search(':[a-z_-]+:', s)
+            m = re.search(':[a-z\+]{1}[\w_-]+:', s)
             if not m:
                 break
             if m.start() > 0:
@@ -83,7 +83,7 @@ class SlackMessageDataset:
         labels = []
 
         last_sentence = None
-        regx = re.compile('^:[\w_-]+:$')
+        regx = re.compile('^:[a-z\+]{1}[\w_-]+:$')
         for line in self.words:
             reaction_emojis = [w for w in line if regx.match(w)]
             reaction_emojis = list(set(reaction_emojis))  # uniq
