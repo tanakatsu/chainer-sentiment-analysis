@@ -84,6 +84,7 @@ class SlackMessageDataset:
 
         last_sentence = None
         regx = re.compile('^:[a-z\+]{1}[\w_-]+:$')
+        print(len(self.words), 'messages')
         for line in self.words:
             reaction_emojis = [w for w in line if regx.match(w)]
             reaction_emojis = list(set(reaction_emojis))  # uniq
