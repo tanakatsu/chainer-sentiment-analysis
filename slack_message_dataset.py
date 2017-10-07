@@ -135,11 +135,20 @@ class SlackMessageDataset:
         else:
             label_len = max(_len)
 
+        last_inputs = {}
         for i in range(label_len):
             for l in mapping:
                 if i < len(mapped_inputs_dict[l]):
-                    mapped_inputs.append(mapped_inputs_dict[l][i])
-                    mapped_labels.append(mapped_labels_dict[l][i])
+                    mapped_input = mapped_inputs_dict[l][i]
+                    mapped_label = mapped_labels_dict[l][i]
+                    if l in last_inputs:
+                        if last_inputs[l] != mapped_input:
+                            mapped_inputs.append(mapped_input)
+                            mapped_labels.append(mapped_label)
+                    else:
+                        mapped_inputs.append(mapped_input)
+                        mapped_labels.append(mapped_label)
+                    last_inputs[l] = mapped_input
         self.inputs = mapped_inputs
         self.labels = mapped_labels
 
